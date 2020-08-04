@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import QuestionScreen from './src/screens/QuestionScreen';
+import GameOverScreen from './src/screens/GameOverScreen';
+import ModeScreen from './src/screens/GetStartedScreen';
+import ChooseQuestionScreen from './src/screens/ChooseQuestionScreen';
+import GetStartedScreen from './src/screens/GetStartedScreen';
+import ChooseCatScreen from './src/screens/ChooseCatScreen';
+import ChooseDifficultyScreen from './src/screens/ChooseDifficultyScreen';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const navigator = createStackNavigator(
+  {
+    Question: QuestionScreen,
+    GameOver: GameOverScreen,
+    Mode: ModeScreen,
+    GetStarted: GetStartedScreen,
+    ChooseQuestion: ChooseQuestionScreen,
+    ChooseCat: ChooseCatScreen,
+    ChooseDifficulty: ChooseDifficultyScreen,
   },
-});
+  {
+    initialRouteName: 'GetStarted',
+    defaultNavigationOptions: {
+      title: 'Trivia',
+    },
+  }
+);
+
+const App = createAppContainer(navigator);
+
+export default () => {
+  return <App />;
+};
