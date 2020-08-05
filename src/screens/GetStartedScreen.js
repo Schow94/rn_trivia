@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Foundation } from '@expo/vector-icons';
 
 const category = [
   'Any Category',
@@ -32,14 +34,29 @@ const category = [
 const GetStartedScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Test your trivia knowledge</Text>
+      <LinearGradient
+        colors={['rgba(8, 181, 255, 0.8)', 'transparent']}
+        start={[0.1, 0.5]}
+        style={styles.gradient}
+      />
+      <View style={styles.titleContainer}>
+        <Foundation style={styles.pencilIcon} name="pencil" />
+        <Text style={styles.titleText}>TriviApp</Text>
+      </View>
+      <Text style={styles.sloganText}>How good is your trivia knowledge</Text>
       <TouchableOpacity
         style={styles.beginBtn}
         onPress={() => {
           navigation.navigate('ChooseQuestion');
         }}
       >
-        <Text style={styles.beginBtnText}>Let's get started</Text>
+        <LinearGradient
+          colors={['#8f7d96', '#7d3b96']}
+          start={[0.1, 0.5]}
+          style={styles.btnGradient}
+        >
+          <Text style={styles.beginBtnText}>Let's get started</Text>
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   );
@@ -47,29 +64,61 @@ const GetStartedScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#0ae2ff',
+    // backgroundColor: '#0ae2ff',
     width: '100%',
     height: '100%',
     alignItems: 'center',
   },
 
+  gradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
+    width: '100%',
+  },
+
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+
+  pencilIcon: {
+    fontSize: 40,
+    marginRight: 10,
+  },
+
   beginBtn: {
     width: 180,
     height: 70,
-    backgroundColor: '#d4d4d4',
+    // backgroundColor: '#d4d4d4',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
-    borderColor: '#b5b5b5',
-    borderWidth: 1,
+    margin: 30,
   },
   beginBtnText: {
     fontSize: 20,
   },
   titleText: {
-    fontSize: 30,
-    margin: 10,
+    fontSize: 40,
+    marginBottom: 10,
+    color: 'white',
+  },
+  sloganText: {
+    marginBottom: 40,
+    fontSize: 18,
+    color: 'white',
+  },
+  btnGradient: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

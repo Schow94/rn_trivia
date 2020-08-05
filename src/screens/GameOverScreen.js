@@ -7,6 +7,10 @@ const GameOverScreen = ({ navigation }) => {
 
   console.log('From game over screen: ', 'right: ', right, 'wrong: ', wrong);
 
+  const restart = () => {
+    navigation.navigate('GetStarted');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -14,8 +18,8 @@ const GameOverScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.scoreContainer}>
-        <Text style={styles.scoreText}>Correct: {right}</Text>
-        <Text style={styles.scoreText}>Wrong: {wrong}</Text>
+        <Text style={styles.correctText}>Correct: {right}</Text>
+        <Text style={styles.wrongText}>Wrong: {wrong}</Text>
       </View>
 
       <View style={styles.btnContainer}>
@@ -23,7 +27,7 @@ const GameOverScreen = ({ navigation }) => {
           <Text style={styles.btnText}>Restart</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn} onPress={() => restart()}>
           <Text style={styles.btnText}>Main Menu</Text>
         </TouchableOpacity>
       </View>
@@ -38,6 +42,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#0ae2ff',
+    alignItems: 'center',
   },
   titleContainer: {
     alignItems: 'center',
@@ -67,12 +72,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   scoreContainer: {
-    borderWidth: 2,
-    borderColor: 'red',
+    // backgroundColor: '#ffcf57',
+    backgroundColor: 'white',
+    width: '80%',
+    height: '30%',
+    borderRadius: 5,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
-  scoresText: {
-    fontSize: 20,
-    color: 'white',
+  correctText: {
+    fontSize: 30,
+    color: 'green',
+  },
+  wrongText: {
+    fontSize: 30,
+    color: 'red',
   },
 });
 

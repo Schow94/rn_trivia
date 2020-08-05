@@ -5,6 +5,8 @@ import Card from '../components/Card';
 import Choices from '../components/Choices';
 import axios from 'axios';
 
+import { Entypo } from '@expo/vector-icons';
+
 // Durstenfield Shuffle - shuffles array randomly for us
 const shuffleArr = (arr) => {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -22,6 +24,8 @@ const QuestionScreen = ({ navigation }) => {
   const difficulty = navigation.getParam('difficulty');
 
   // HOOKS
+  const [clicked, setClicked] = useState(false);
+  const [clickedVal, setClickedVal] = useState('');
 
   // Sets questions array (currently 10 questions at a time)
   const [questions, setQuestions] = useState([]);
@@ -95,10 +99,8 @@ const QuestionScreen = ({ navigation }) => {
     console.log('CLICKED: ', clicked);
 
     if (clicked === correct) {
-      alert('You are CORRECT');
       addRight();
     } else {
-      alert('You are WRONG');
       addWrong();
     }
   };
@@ -114,6 +116,13 @@ const QuestionScreen = ({ navigation }) => {
   console.log(
     `https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=${difficulty}`
   );
+
+  // Resets state for next question so correct answer is hidden
+  const nextQuestion = () => {
+    incrementCount();
+    setClicked(false);
+    setClickedVal('');
+  };
 
   return (
     <View style={styles.container}>
@@ -132,6 +141,11 @@ const QuestionScreen = ({ navigation }) => {
         navigation={navigation}
         right={right}
         wrong={wrong}
+        clicked={clicked}
+        setClicked={setClicked}
+        clickedVal={clickedVal}
+        setClickedVal={setClickedVal}
+        nextQuestion={nextQuestion}
       />
     </View>
   );
@@ -159,8 +173,11 @@ QuestionScreen.navigationOptions = ({ navigation }) => {
     ),
 
     headerRight: () => (
-      <TouchableOpacity style={styles.nextBtn}>
-        <Text style={styles.nextBtnText}>Next Question</Text>
+      <TouchableOpacity
+        style={styles.homeBtn}
+        onPress={() => navigation.navigate('GetStarted')}
+      >
+        <Entypo style={styles.homeIcon} name="home" />
       </TouchableOpacity>
     ),
   };
@@ -176,18 +193,15 @@ const styles = StyleSheet.create({
   header: {
     margin: 10,
   },
-  nextBtn: {
-    backgroundColor: '#26b5fc',
-    width: 120,
+  homeBtn: {
+    width: 50,
     height: 50,
-    borderRadius: 5,
-    margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  nextBtnText: {
-    fontSize: 16,
-    color: 'white',
+  homeIcon: {
+    color: 'grey',
+    fontSize: 30,
   },
 });
 

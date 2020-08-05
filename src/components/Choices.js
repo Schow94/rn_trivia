@@ -20,10 +20,12 @@ const Choices = ({
   navigation,
   right,
   wrong,
+  clicked,
+  setClicked,
+  clickedVal,
+  setClickedVal,
+  nextQuestion,
 }) => {
-  const [clicked, setClicked] = useState(false);
-  const [clickedVal, setClickedVal] = useState('');
-
   // Have to call shuffleChoices fxn each time Choices component is re-rendered to make sure data
   // is up to date
   useEffect(() => shuffleChoices(), [question]);
@@ -81,6 +83,28 @@ const Choices = ({
           );
         })}
       </View>
+
+      {clicked ? (
+        <View style={styles.judgeContainer}>
+          {clicked ? (
+            clickedVal === correct ? (
+              <Text style={styles.correctText}>CORRECT</Text>
+            ) : (
+              <Text style={styles.wrongText}>WRONG</Text>
+            )
+          ) : null}
+          {clicked ? (
+            <TouchableOpacity
+              style={
+                clickedVal === correct ? styles.correctBtn : styles.wrongBtn
+              }
+              onPress={() => nextQuestion()}
+            >
+              <Text style={styles.nextBtnText}>Next Question</Text>
+            </TouchableOpacity>
+          ) : null}
+        </View>
+      ) : null}
     </View>
   );
 };
@@ -90,7 +114,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '60%',
     backgroundColor: '#d9d9d9',
-    // borderColor: 'blue',
+    // borderColor: 'green',
     // borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
@@ -98,16 +122,17 @@ const styles = StyleSheet.create({
 
   choicesContainer: {
     width: '100%',
-    // height: '100%',
-    // borderColor: 'red',
+    height: '80%',
+    // borderColor: 'blue',
     // borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    // marginTop: 20,
   },
 
   choice: {
     width: '80%',
-    height: '20%',
+    height: '15%',
     backgroundColor: '#57beff',
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -140,6 +165,57 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingLeft: 20,
     fontSize: 18,
+  },
+  // nextBtn: {
+  //   backgroundColor: '#26b5fc',
+  //   width: 120,
+  //   height: 50,
+  //   borderRadius: 5,
+  //   marginTop: 10,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  nextBtnText: {
+    fontSize: 16,
+    color: 'white',
+  },
+  judgeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    // borderWidth: 2,
+    // borderColor: 'red',
+    width: '100%',
+    height: '20%',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  correctText: {
+    fontSize: 30,
+    color: 'green',
+  },
+  wrongText: {
+    fontSize: 30,
+    color: 'red',
+  },
+  correctBtn: {
+    backgroundColor: 'green',
+    width: 120,
+    height: 50,
+    borderRadius: 5,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+  wrongBtn: {
+    backgroundColor: 'red',
+    width: 120,
+    height: 50,
+    borderRadius: 5,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
   },
 });
 
