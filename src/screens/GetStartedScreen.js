@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Foundation } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 const category = [
   'Any Category',
@@ -62,6 +63,37 @@ const GetStartedScreen = ({ navigation }) => {
   );
 };
 
+GetStartedScreen.navigationOptions = ({ navigation }) => {
+  // const params = navigation.state.params || { right: 0, wrong: 0 };
+  // const { right, wrong } = params;
+
+  return {
+    headerStyle: {
+      height: 70,
+      // backgroundColor: '#fcfcfc',
+      borderBottomWidth: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+    },
+    // headerLeft: () => (
+    //   <View style={styles.header}>
+    //     <Text>
+    //       {right} / {right + wrong}
+    //     </Text>
+    //   </View>
+    // ),
+
+    headerRight: () => (
+      <TouchableOpacity
+        style={styles.gameBtn}
+        onPress={() => navigation.navigate('Question')}
+      >
+        <Entypo name="game-controller" style={styles.gameIcon} />
+      </TouchableOpacity>
+    ),
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     // backgroundColor: '#0ae2ff',
@@ -119,6 +151,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  gameBtn: {
+    marginRight: 10,
+  },
+  gameIcon: {
+    color: 'grey',
+    fontSize: 25,
   },
 });
 

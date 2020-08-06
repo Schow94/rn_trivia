@@ -38,14 +38,7 @@ const Choices = ({
     setClicked(true);
     setClickedVal(val);
 
-    if (count === questions.length - 1) {
-      navigation.navigate('GameOver', { right: right, wrong: wrong });
-    } else {
-      // There will be a "Next Question" btn to increment and load the next question
-      // incrementCount();
-
-      validateAnswer(val);
-    }
+    validateAnswer(val);
   };
 
   // console.log('QUESTION: ', question['correct_answer']);
@@ -164,7 +157,7 @@ const styles = StyleSheet.create({
   choiceText: {
     color: 'white',
     paddingLeft: 20,
-    fontSize: 18,
+    fontSize: 14,
   },
   // nextBtn: {
   //   backgroundColor: '#26b5fc',

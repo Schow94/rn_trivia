@@ -61,9 +61,10 @@ const QuestionScreen = ({ navigation }) => {
   // API Call to get 10 questions & set questions in state
   const getQuestions = async () => {
     try {
+      //Still seems to work if category is an empty
       const res = await axios({
         method: 'get',
-        url: `https://opentdb.com/api.php?amount=${numQuestions}&category=${9}&difficulty=${difficulty}`,
+        url: `https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=${difficulty}`,
       });
       console.log(res.data);
       setQuestions(res.data.results);
@@ -119,9 +120,13 @@ const QuestionScreen = ({ navigation }) => {
 
   // Resets state for next question so correct answer is hidden
   const nextQuestion = () => {
-    incrementCount();
-    setClicked(false);
-    setClickedVal('');
+    if (count === questions.length - 1) {
+      navigation.navigate('GameOver', { right: right, wrong: wrong });
+    } else {
+      incrementCount();
+      setClicked(false);
+      setClickedVal('');
+    }
   };
 
   return (

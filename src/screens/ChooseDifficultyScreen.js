@@ -8,7 +8,12 @@ import {
 } from 'react-native';
 
 // If any difficulty, then don't pass in a param
-const diffArr = ['Any Difficulty', 'easy', 'medium', 'hard'];
+const diffArr = [
+  { diff: 'Any Difficulty', code: '' },
+  { diff: 'Easy', code: 'easy' },
+  { diff: 'Medium', code: 'medium' },
+  { diff: 'Hard', code: 'hard' },
+];
 
 const ChooseDifficultyScreen = ({ navigation }) => {
   const numQuestions = navigation.getParam('numQuestions');
@@ -33,14 +38,14 @@ const ChooseDifficultyScreen = ({ navigation }) => {
         scrollEnabled={false}
         style={styles.list}
         data={diffArr}
-        keyExtractor={(num) => num}
+        keyExtractor={(val) => val.diff}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => chooseDiff(item)}
+              onPress={() => chooseDiff(item.code)}
               style={styles.btn}
             >
-              <Text style={styles.btnText}>{item}</Text>
+              <Text style={styles.btnText}>{item.diff}</Text>
             </TouchableOpacity>
           );
         }}

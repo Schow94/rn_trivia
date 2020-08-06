@@ -6,32 +6,32 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-
 const category = [
-  'Any Category',
-  'General Knowledge',
-  'Entertainment: Books',
-  'Entertainment: Film',
-  'Entertainment: Musical & Theatres',
-  'Entertainment: Television',
-  'Entertainment: Video Games',
-  'Entertainment: Board Games',
-  'Entertainment: Gadgets',
-  'Entertainment: Japanese Anime & Manga',
-  'Entertainment: Cartoon & Animations',
-  'Science & Nature',
-  'Science: Computers',
-  'Science: Mathematics',
-  'Science: Gadgets',
-  'Mythology',
-  'Sports',
-  'Geography',
-  'History',
-  'Politics',
-  'Art',
-  'Celebrities',
-  'Animals',
-  'Vehicles',
+  { category: 'Any Category', code: '' },
+  { category: 'General Knowledge', code: '9' },
+  { category: 'Entertainment: Books', code: '10' },
+  { category: 'Entertainment: Film', code: '11' },
+  { category: 'Entertainment: Music', code: '12' },
+  { category: 'Entertainment: Musical & Theatres', code: '13' },
+  { category: 'Entertainment: Television', code: '14' },
+  { category: 'Entertainment: Video Games', code: '15' },
+  { category: 'Entertainment: Board Games', code: '16' },
+  { category: 'Entertainment: Comics', code: '29' },
+  { category: 'Entertainment: Japanese Anime & Manga', code: '31' },
+  { category: 'Entertainment: Cartoon & Animations', code: '32' },
+  { category: 'Science & Nature', code: '17' },
+  { category: 'Science: Computers', code: '18' },
+  { category: 'Science: Mathematics', code: '19' },
+  { category: 'Science: Gadgets', code: '30' },
+  { category: 'Mythology', code: '20' },
+  { category: 'Sports', code: '21' },
+  { category: 'Geography', code: '22' },
+  { category: 'History', code: '23' },
+  { category: 'Politics', code: '24' },
+  { category: 'Art', code: '25' },
+  { category: 'Celebrities', code: '26' },
+  { category: 'Animals', code: '27' },
+  { category: 'Vehicles', code: '28' },
 ];
 
 const ChooseCatScreen = ({ navigation }) => {
@@ -47,7 +47,6 @@ const ChooseCatScreen = ({ navigation }) => {
     });
   };
 
-
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Choose a category</Text>
@@ -56,14 +55,14 @@ const ChooseCatScreen = ({ navigation }) => {
         style={styles.list}
         data={category}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(num) => num}
+        keyExtractor={(cat) => cat.category}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => chooseCat(item)}
+              onPress={() => chooseCat(item.code)}
               style={styles.btn}
             >
-              <Text style={styles.btnText}>{item}</Text>
+              <Text style={styles.btnText}>{item.category}</Text>
             </TouchableOpacity>
           );
         }}
